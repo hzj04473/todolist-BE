@@ -15,8 +15,18 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-userSchema.method.generateToken = function () {
-  const token = jwt.sign({ _id: this._id }, JWT_SECRET_KEY);
+// password 는 언제나 삭제
+userSchema.methods.toJSON = function () {
+  const obj = this._doc;
+  delete obj.password;
+  return obj;
+};
+
+// jwt 및 유효기간
+userSchema.methods.generateToken = function () {
+  const token = jwt.sign({ _id: this._id }, JWT_SECRET_KEY, {
+    expiresIn: '1d',
+  });
   return token;
 };
 
