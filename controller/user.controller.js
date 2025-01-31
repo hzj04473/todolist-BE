@@ -21,8 +21,8 @@ userConroller.createUser = async (req, res) => {
     await newUser.save();
 
     res.status(201).json({ status: 'success' });
-  } catch (err) {
-    res.status(400).json({ status: 'fail', error: err });
+  } catch (error) {
+    res.status(400).json({ status: 'fail', error: error.message });
   }
 };
 
@@ -38,10 +38,16 @@ userConroller.loginWithEmail = async (req, res) => {
         const token = user.generateToken();
 
         return res.status(200).json({ status: 'success', user, token });
+      } else {
+        throw new Error(
+          '회원정보 틀립니다.\n아이디와 패스워드를 입력해 주세요.'
+        );
       }
+    } else {
+      throw new Error('일치하는 회원정보가 없습니다.');
     }
   } catch (error) {
-    res.status(400).json({ status: 'fail', error });
+    res.status(400).json({ status: 'fail', error: error.message });
   }
 };
 module.exports = userConroller;
