@@ -1,5 +1,13 @@
 # todolist-BE
 
+0131 BE
+0131 bcrypt 설치 - 회원정보 password 암호화
+Model/User.js 에서 password 암호화 메소드 추가
+Model/User.js 에서 쿼리 실행시 password delete 하여, 안 나오게 처리
+Controller/user.controller.js 에서
+회원가입시 회원중복 체크하여, 중복 가입 막기
+프론트앤드 정보 중 password 와 mongoDB에 있는 암호화 된 password 컬럼과 비교하여 로그인 진행
+
 0128 BE - heroku, cloudtype, aws beanstalk
 0128 DB - Mongodb Altas
 

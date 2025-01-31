@@ -36,7 +36,6 @@ userConroller.loginWithEmail = async (req, res) => {
       console.log(isMath);
       if (isMath) {
         const token = user.generateToken();
-
         return res.status(200).json({ status: 'success', user, token });
       } else {
         throw new Error(
