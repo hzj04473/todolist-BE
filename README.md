@@ -2,6 +2,9 @@
 
 ## 0131 BE
 
+- TODO LIST 일자 DueDate 컬럼 생성
+  - Model/Task.js 스키마 수정
+  - Controller/task.controller createTask 수정
 - bcrypt 설치 - 회원정보 password 암호화
 - Model/User.js
   - password 암호화 메소드 추가
