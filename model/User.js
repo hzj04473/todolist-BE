@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// token 발급을 위한 JWT 패키지
 const jwt = require('jsonwebtoken');
 
+// 환경변수 연결
 require('dotenv').config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
@@ -22,7 +24,8 @@ userSchema.methods.toJSON = function () {
   return obj;
 };
 
-// jwt 및 유효기간
+// JWT 및 유효기간 (1일 = 1d, 2일 = 2d)
+// JWT 로그인 토큰 생성
 userSchema.methods.generateToken = function () {
   const token = jwt.sign({ _id: this._id }, JWT_SECRET_KEY, {
     expiresIn: '1d',
