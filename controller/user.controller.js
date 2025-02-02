@@ -46,7 +46,7 @@ userConroller.loginWithEmail = async (req, res) => {
       throw new Error('일치하는 회원정보가 없습니다.');
     }
   } catch (error) {
-    res.status(400).json({ status: 'fail', error: error.message });
+    res.status(400).json({ status: 'fail', message: error.message });
   }
 };
 module.exports = userConroller;
