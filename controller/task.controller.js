@@ -1,12 +1,28 @@
 const Task = require('../model/Task');
+// 제미니 연결
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const taskController = {};
 
 taskController.createTask = async (req, res) => {
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+
   try {
     const { task, dueStartDate, dueEndDate, isComplete } = req.body;
 
-    const newTask = new Task({ task, dueStartDate, dueEndDate, isComplete });
+    const prompt = `할 일 "${task}"에 대한 긍정적이고, 동기 부여가 되는 문구를 40자 이내로 문어체로 추천 부탁해요. 이상한 특수문자등은 필요없어요. 문구 앞에는 꼭 관련된 이모티콘을 붙여주세요.`;
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const geminiMessage = response.text();
+
+    const newTask = new Task({
+      task,
+      dueStartDate,
+      dueEndDate,
+      geminiMessage,
+      isComplete,
+    });
 
     await newTask.save();
 

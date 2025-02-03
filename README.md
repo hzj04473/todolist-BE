@@ -1,5 +1,10 @@
 # todolist-BE
 
+## 0202 BE
+
+- 할일에 대한 시작일과 종료일 DB 저장
+- 할일 내용에 대한 동기유발 문구 제미니 API 연결 완료
+
 ## 0131 BE
 
 - TODO LIST 일자 DueDate 컬럼 생성
