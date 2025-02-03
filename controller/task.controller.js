@@ -4,9 +4,9 @@ const taskController = {};
 
 taskController.createTask = async (req, res) => {
   try {
-    const { task, dueDate, isComplete } = req.body;
+    const { task, dueStartDate, dueEndDate, isComplete } = req.body;
 
-    const newTask = new Task({ task, dueDate, isComplete });
+    const newTask = new Task({ task, dueStartDate, dueEndDate, isComplete });
 
     await newTask.save();
 
