@@ -33,7 +33,7 @@ userConroller.loginWithEmail = async (req, res) => {
     const user = await User.findOne({ email }, ' -createdAt -updatedAt -__v');
     if (user) {
       const isMath = bcrypt.compareSync(password, user.password);
-      console.log(isMath);
+      // console.log(isMath);
       if (isMath) {
         const token = user.generateToken();
         return res.status(200).json({ status: 'success', user, token });
