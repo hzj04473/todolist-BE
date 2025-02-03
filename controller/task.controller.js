@@ -6,12 +6,12 @@ const taskController = {};
 
 taskController.createTask = async (req, res) => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
   try {
     const { task, dueStartDate, dueEndDate, isComplete } = req.body;
 
-    const prompt = `할 일 "${task}"에 대한 긍정적이고, 동기 부여가 되는 문구를 최소 20자에서 최대 25자로 된 문어체 부탁해요. 글자수는 꼭 신경 써 주세요. 이상한 특수문자등은 필요없어요. 문구 앞에는 꼭 관련된 이모티콘을 붙여주세요.`;
+    const prompt = `할 일 "${task}"에 대한 긍정적인 동기 부여 문구를 최소 20자에서 최대 25자로 된 문어체 부탁해요. 글자수는 꼭 신경 써 주세요. 이상한 특수문자등은 필요없어요. 문구 앞에는 꼭 관련된 이모티콘을 붙여주세요.`;
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const geminiMessage = response.text();
