@@ -37,8 +37,14 @@ taskController.createTask = async (req, res) => {
 
 taskController.getTask = async (req, res) => {
   try {
+    // sort((a, b) => a.age - b.age);
     const taskList = await Task.find({}).select('-__v ');
-    res.status(200).json({ status: 'ok', data: taskList });
+    res
+      .status(200)
+      .json({
+        status: 'ok',
+        data: taskList.sort((a, b) => a.dueStartDate - b.dueStartDate),
+      });
   } catch (err) {
     res.status(400).json({ status: 'fail', error: err });
   }
