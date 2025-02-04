@@ -1,5 +1,10 @@
 # todolist-BE
 
+## 0204 BE
+
+- populate : JOIN과 비슷한.
+- 미들웨어 (사용자 Id)
+
 ## 0203 BE
 
 - 할일에 대한 시작일과 종료일 DB 저장
