@@ -11,6 +11,10 @@ taskController.createTask = async (req, res) => {
   try {
     const { task, dueStartDate, dueEndDate, isComplete } = req.body;
 
+    // 미들웨어... userId
+    const { userId } = req;
+
+    // 제미니 AI prompt
     const prompt = `"할 일 ${task}에 대해 긍정적이고 동기 부여가 되는 문어체 문구를 작성해주세요.
     - 글자 수: 15~20자
     - 특수문자 제외
@@ -25,6 +29,7 @@ taskController.createTask = async (req, res) => {
       dueEndDate,
       geminiMessage,
       isComplete,
+      author: userId,
     });
 
     await newTask.save();
@@ -39,6 +44,7 @@ taskController.getTask = async (req, res) => {
   try {
     // sort((a, b) => a.age - b.age);
     const taskList = await Task.find({})
+      .populate({ path: 'author' }) // ⬅️ 명확한 `path` 지정
       .sort({ isComplete: 1, dueStartDate: 1 })
       .select('-__v ');
     res.status(200).json({

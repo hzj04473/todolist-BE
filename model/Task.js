@@ -6,7 +6,11 @@ const taskSchema = new Schema(
     task: { type: String, required: true },
     dueStartDate: { type: Date, required: true },
     dueEndDate: { type: Date, required: true },
-    geminiMessage: { type: String, default: false },
+    geminiMessage: {
+      type: String,
+      required: true,
+    },
+    author: { type: Schema.Types.ObjectId, required: true, ref: 'user' },
     isComplete: {
       type: Boolean,
       required: true,

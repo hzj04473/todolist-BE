@@ -49,4 +49,20 @@ userConroller.loginWithEmail = async (req, res) => {
     res.status(400).json({ status: 'fail', message: error.message });
   }
 };
+
+userConroller.getUser = async (req, res) => {
+  try {
+    const { userId } = req;
+    // console.log(userId);
+    const user = await User.findById(userId);
+    // console.log(user);
+
+    if (!user) {
+      throw new Error('유저 정보를 찾을 수 없습니다.');
+    }
+    res.status(200).json({ status: 'succcess', user });
+  } catch (error) {
+    res.status(400).json({ status: 'fail', message: error.message });
+  }
+};
 module.exports = userConroller;
