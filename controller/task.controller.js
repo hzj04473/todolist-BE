@@ -42,14 +42,28 @@ taskController.createTask = async (req, res) => {
 
 taskController.getTask = async (req, res) => {
   try {
+    // 미들웨어... userId
+    const { userId } = req;
+
+    console.log('middle ID >>>>', userId);
+
     // sort((a, b) => a.age - b.age);
-    const taskList = await Task.find({})
-      .populate({ path: 'author' }) // ⬅️ 명확한 `path` 지정
+    const taskList = await Task.find({ author: userId })
+      .populate({
+        path: 'author',
+      }) // ⬅️ 명확한 `path` 지정
       .sort({ isComplete: 1, dueStartDate: 1 })
       .select('-__v ');
+
+    // `author`가 `null`이 아닌 데이터만 필터링
+    // const filteredTaskList = taskList.filter((task) => task.author !== null);
+    const filteredTaskList = taskList.filter(
+      (task) => task.author && task.author._id
+    );
+
     res.status(200).json({
       status: 'ok',
-      data: taskList,
+      data: filteredTaskList,
     });
   } catch (err) {
     res.status(400).json({ status: 'fail', error: err });

@@ -5,7 +5,7 @@ const authController = require('../controller/auth.controller');
 
 router.post('/', authController.authenticate, taskController.createTask);
 
-router.get('/', taskController.getTask);
+router.get('/', authController.authenticate, taskController.getTask);
 
 router.put('/:id', taskController.updateTask);
 
