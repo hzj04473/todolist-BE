@@ -45,7 +45,7 @@ taskController.getTask = async (req, res) => {
     // 미들웨어... userId
     const { userId } = req;
 
-    console.log('middle ID >>>>', userId);
+    // console.log('middle ID >>>>', userId);
 
     // sort((a, b) => a.age - b.age);
     const taskList = await Task.find({ author: userId })
