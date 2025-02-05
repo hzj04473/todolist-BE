@@ -12,4 +12,7 @@ router.post('/login', userConroller.loginWithEmail);
 // userConroller.getUser 미들웨어
 router.get('/me', authController.authenticate, userConroller.getUser);
 
+// 로그아웃
+router.post('/logout', authController.authenticate, userConroller.logout);
+
 module.exports = router;
