@@ -1,5 +1,9 @@
 # todolist-BE
 
+## 0205 BE
+
+- 로그아웃 처리 완료
+
 ## 0204 BE
 
 - populate : JOIN과 비슷한.
