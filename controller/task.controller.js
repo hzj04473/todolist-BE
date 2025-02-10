@@ -17,6 +17,7 @@ taskController.createTask = async (req, res) => {
     // 제미니 AI prompt
     const prompt = `"할 일 ${task}에 대해 긍정적이고 동기 부여가 되는 문어체 문구를 작성해주세요.
     - 글자 수: 15~20자
+    - 농담조
     - 특수문자 제외
     - 문구 앞에 관련 이모티콘 포함"`;
     const result = await model.generateContent(prompt);
