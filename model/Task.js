@@ -10,7 +10,12 @@ const taskSchema = new Schema(
       type: String,
       required: true,
     },
-    author: { type: Schema.Types.ObjectId, required: true, ref: 'user' },
+    author: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'user',
+      index: true,
+    },
     isComplete: {
       type: Boolean,
       required: true,
