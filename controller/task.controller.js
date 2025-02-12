@@ -147,7 +147,7 @@ taskController.searchTask = async (req, res) => {
         author: { $eq: userId },
       }).exec();
 
-      console.log(searchTask);
+      // console.log(searchTask);
       res.status(200).json({ status: 'ok', data: searchTask });
     }
   } catch (error) {
