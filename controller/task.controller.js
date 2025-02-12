@@ -142,13 +142,27 @@ taskController.searchTask = async (req, res) => {
       // const searchTask = await Task.find({ task: keyword }).exec();
       // $regex: keyword → keyword가 포함된 데이터를 찾음
       // $options: 'i' → 대소문자를 구분하지 않도록 설정
-      const searchTask = await Task.find({
-        task: { $regex: keyword, $options: 'i' },
-        author: { $eq: userId },
-      }).exec();
 
-      // console.log(searchTask);
-      res.status(200).json({ status: 'ok', data: searchTask });
+      const taskList = await Task.find({
+        task: { $regex: keyword, $options: 'i' },
+        author: userId,
+      })
+        .populate({
+          path: 'author',
+        }) // ⬅️ 명확한 `path` 지정
+        .sort({ isComplete: 1, dueStartDate: 1 })
+        .select('-__v ');
+
+      // `author`가 `null`이 아닌 데이터만 필터링
+      // const filteredTaskList = taskList.filter((task) => task.author !== null);
+      const filteredTaskList = taskList.filter(
+        (task) => task.author && task.author._id
+      );
+
+      res.status(200).json({
+        status: 'ok',
+        data: filteredTaskList,
+      });
     }
   } catch (error) {
     res.status(400).json({ status: 'fail', error: error });
