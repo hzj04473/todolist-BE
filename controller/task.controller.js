@@ -144,9 +144,10 @@ taskController.searchTask = async (req, res) => {
       // $options: 'i' → 대소문자를 구분하지 않도록 설정
       const searchTask = await Task.find({
         task: { $regex: keyword, $options: 'i' },
+        author: { $eq: userId },
       }).exec();
 
-      // console.log(searchTask);
+      console.log(searchTask);
       res.status(200).json({ status: 'ok', data: searchTask });
     }
   } catch (error) {
