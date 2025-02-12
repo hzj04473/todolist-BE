@@ -31,8 +31,8 @@ taskController.createTask = async (req, res) => {
 
     다음 조건을 정확히 따라 주세요:  
     1. 전문적이고 신뢰감 있는 어조 사용.  
-    2. 반드시 **각 문구는 10자 이내**로 요약 (예: "꾸준함이 중요").  
-    3. 10자를 초과할 경우, 다시 생성하여 10자로 맞춤.
+    2. 반드시 **각 문구는 7자 이내**로 요약 (예: "꾸준함이 중요").  
+    3. 7자를 초과할 경우, 다시 생성하여 7자로 맞춤.
     4. 반드시 3개만 리스트업  
     5. 유머러스한 표현을 포함.  
     6. 반드시 특수문자 (**, !, ?, ., , 등) 제외.  
@@ -126,6 +126,31 @@ taskController.deleteTask = async (req, res) => {
     res.status(200).json({ status: 'ok', message: deleteTask });
   } catch (err) {
     res.status(400).json({ status: 'fail', error: err });
+  }
+};
+
+taskController.searchTask = async (req, res) => {
+  try {
+    const { userId } = req;
+    const { keyword } = req.params;
+    // console.log(userId);
+    // console.log({ task: keyword });
+    // 부분 일치 검색 (Regex)
+    // $regex를 사용하면 특정 키워드를 포함하는 문서를 찾을 수 있습니다.
+
+    if (keyword) {
+      // const searchTask = await Task.find({ task: keyword }).exec();
+      // $regex: keyword → keyword가 포함된 데이터를 찾음
+      // $options: 'i' → 대소문자를 구분하지 않도록 설정
+      const searchTask = await Task.find({
+        task: { $regex: keyword, $options: 'i' },
+      }).exec();
+
+      // console.log(searchTask);
+      res.status(200).json({ status: 'ok', data: searchTask });
+    }
+  } catch (error) {
+    res.status(400).json({ status: 'fail', error: error });
   }
 };
 
