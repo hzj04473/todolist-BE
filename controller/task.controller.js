@@ -15,12 +15,15 @@ taskController.createTask = async (req, res) => {
     const { userId } = req;
 
     // 제미니 AI prompt
-    const prompt = `"할 일 ${task}에 대해서 도움을 줄수 있는 글 부탁해요.
-    - 전문가가 말하는 것처럼 한글
-    - 글자수는 10자로 요약글
-    - 유머러스
-    - 특수문자 제외
-    - 문구 앞에 관련 이모티콘 포함"`;
+    const prompt = `"할 일 ${task}에 대해 전문가가 말하는 것처럼 조언을 제공해 주세요.  
+    다음 조건을 정확히 따라 주세요:  
+    1. 전문적이고 신뢰감 있는 어조 사용.  
+    2. 반드시 **10자 이내**로 요약 (예: "꾸준함이 중요").  
+    3. 10자를 초과할 경우, 다시 생성하여 10자로 맞춤.  
+    7. 유머러스한 표현을 포함.  
+    8. 특수문자 (!, ?, ., , 등) 제외.  
+    9. 문구 앞에 관련 이모티콘 포함 (예: 🏃‍♂️, 📚 등)."`;
+
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const geminiMessage = response.text();
