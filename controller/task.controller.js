@@ -15,8 +15,9 @@ taskController.createTask = async (req, res) => {
     const { userId } = req;
 
     // 제미니 AI prompt
-    const prompt = `"할 일 ${task}에 대해서 도움의 글을 부탁해 ~
+    const prompt = `"할 일 ${task}에 대해서 도움을 줄수 있는 글 부탁해요.
     - 글자 수: 15~20자
+    - 도움글 밑으로 참고 사이트 2개 정도를 단축 URL로 부탁 
     - 농담조
     - 특수문자 제외
     - 문구 앞에 관련 이모티콘 포함"`;
