@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const taskSchema = new Schema(
   {
-    task: { type: String, required: true },
+    task: { type: String, required: true, index: true },
     dueStartDate: { type: Date, required: true },
     dueEndDate: { type: Date, required: true },
     geminiMessage: {
