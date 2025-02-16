@@ -13,6 +13,8 @@ const userSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    snsType: { type: String, required: true },
+    snsId: { type: String, required: true, unique: true },
   },
   { timestamps: true }
 );

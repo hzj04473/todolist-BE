@@ -7,7 +7,7 @@ const userController = {};
 
 userController.createUser = async (req, res) => {
   try {
-    const { email, name, password } = req.body;
+    const { email, name, password, sns } = req.body;
     const user = await User.findOne({ email });
     if (user) {
       throw new Error('이미 가입이 된 유저 입니다.');
@@ -17,7 +17,13 @@ userController.createUser = async (req, res) => {
     const hash = bcrypt.hashSync(password, salt);
     // console.log(hash);
 
-    const newUser = new User({ email, name, password: hash });
+    const newUser = new User({
+      email,
+      name,
+      password: hash,
+      snsType: sns.snsType,
+      snsId: sns.snsId,
+    });
     await newUser.save();
 
     res.status(201).json({ status: 'success' });
